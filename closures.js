@@ -233,8 +233,12 @@ isNotAFriend(secondLevelFriends[2]); // true
 method, find all potential second level friends as well as potential friends
 from allUsers. */
 
-var potentialSecondLevelFriends = "?";
-var allPotentialFriends = "?";
+var potentialSecondLevelFriends = secondLevelFriends.filter(function(friend) {
+  return isNotAFriend(friend)
+});
+var allPotentialFriends = allUsers.filter(function(friend) {
+  return isNotAFriend(friend)
+});
 
 
 /******************************************************************************\
@@ -258,10 +262,13 @@ to 5. What we need to do is console.log(i) so that it logs like so:
  */
 
 function timeOutCounter() {
+  function counter(preservedI) {
+    return function () {
+      console.log(preservedI)
+    }
+  }
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-    	console.log(i)
-	}, i * 1000)
+    setTimeout(counter(i), i * 1000)
   }
 }
 timeOutCounter();
